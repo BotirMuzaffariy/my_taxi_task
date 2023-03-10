@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,6 +10,107 @@
         android:id="@+id/map_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        mapbox:mapbox_cameraZoom="9.0" />
+        app:mapbox_cameraZoom="9.0" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_notifications"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:cardCornerRadius="99dp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:tint="@color/black"
+            app:srcCompat="@drawable/ic_notification" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-4dp"
+        android:background="@drawable/shape_circle"
+        android:backgroundTint="@color/red"
+        android:elevation="6dp"
+        android:fontFamily="@font/roboto_medium"
+        android:paddingHorizontal="4dp"
+        android:text="1"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@id/btn_notifications"
+        app:layout_constraintTop_toTopOf="@id/btn_notifications" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_zoom_in"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        app:cardBackgroundColor="@color/white_80"
+        app:cardCornerRadius="99dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/btn_notifications"
+        app:layout_constraintStart_toStartOf="@id/btn_notifications"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_plus"
+            app:tint="@color/black" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_zoom_out"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="@color/white_80"
+        app:cardCornerRadius="99dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="@id/btn_zoom_in"
+        app:layout_constraintStart_toStartOf="@id/btn_zoom_in"
+        app:layout_constraintTop_toBottomOf="@id/btn_zoom_in">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_minus"
+            app:tint="@color/black" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_track_user"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="26dp"
+        app:cardBackgroundColor="@color/white_80"
+        app:cardCornerRadius="99dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="@id/btn_zoom_in"
+        app:layout_constraintStart_toStartOf="@id/btn_zoom_in"
+        app:layout_constraintTop_toBottomOf="@id/btn_zoom_out">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_navigate"
+            app:tint="@color/black" />
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
