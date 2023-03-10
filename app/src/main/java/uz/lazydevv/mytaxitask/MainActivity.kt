@@ -71,10 +71,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         with(binding) {
-            btnNotifications.setOnClickListener {
-                // todo
-            }
-
             btnZoomIn.setOnClickListener {
                 disableUserTracking()
                 changeZoomWithAnimation(1)

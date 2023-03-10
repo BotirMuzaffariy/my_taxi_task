@@ -9,21 +9,49 @@
     <com.mapbox.maps.MapView
         android:id="@+id/map_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="1.1"
+        app:layout_constraintTop_toTopOf="parent"
         app:mapbox_cameraZoom="9.0" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_menu"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/white_gray"
+        app:cardCornerRadius="99dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:tint="@color/black"
+            app:srcCompat="@drawable/ic_menu" />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/btn_notifications"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/white_gray"
         app:cardCornerRadius="99dp"
-        app:cardElevation="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/btn_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05">
+        app:layout_constraintTop_toTopOf="@id/btn_menu">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
@@ -40,22 +68,84 @@
         android:layout_marginTop="-4dp"
         android:background="@drawable/shape_circle"
         android:backgroundTint="@color/red"
-        android:elevation="6dp"
+        android:elevation="10dp"
         android:fontFamily="@font/roboto_medium"
-        android:paddingHorizontal="4dp"
+        android:paddingHorizontal="4.5dp"
         android:text="1"
         android:textColor="@color/white"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="@id/btn_notifications"
         app:layout_constraintTop_toTopOf="@id/btn_notifications" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white_gray"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="6dp"
+        app:layout_constraintEnd_toStartOf="@id/btn_notifications"
+        app:layout_constraintStart_toEndOf="@id/btn_menu"
+        app:layout_constraintTop_toTopOf="@id/btn_menu"
+        app:layout_constraintWidth_percent="0.58">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/green"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:paddingVertical="16dp"
+                android:text="Свободен"
+                android:textColor="@color/white" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Занят"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_spark"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/white_gray"
+        app:cardCornerRadius="99dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/btn_menu"
+        app:layout_constraintStart_toStartOf="@id/btn_menu"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:tint="@color/blue"
+            app:srcCompat="@drawable/ic_spark" />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/btn_zoom_in"
         android:layout_width="38dp"
         android:layout_height="38dp"
-        app:cardBackgroundColor="@color/white_80"
+        app:cardBackgroundColor="@color/white_70"
         app:cardCornerRadius="99dp"
-        app:cardElevation="0dp"
+        app:cardElevation="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/btn_notifications"
         app:layout_constraintStart_toStartOf="@id/btn_notifications"
@@ -76,9 +166,9 @@
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/white_80"
+        app:cardBackgroundColor="@color/white_70"
         app:cardCornerRadius="99dp"
-        app:cardElevation="0dp"
+        app:cardElevation="14dp"
         app:layout_constraintEnd_toEndOf="@id/btn_zoom_in"
         app:layout_constraintStart_toStartOf="@id/btn_zoom_in"
         app:layout_constraintTop_toBottomOf="@id/btn_zoom_in">
@@ -97,9 +187,9 @@
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:layout_marginTop="26dp"
-        app:cardBackgroundColor="@color/white_80"
+        app:cardBackgroundColor="@color/white_70"
         app:cardCornerRadius="99dp"
-        app:cardElevation="0dp"
+        app:cardElevation="14dp"
         app:layout_constraintEnd_toEndOf="@id/btn_zoom_in"
         app:layout_constraintStart_toStartOf="@id/btn_zoom_in"
         app:layout_constraintTop_toBottomOf="@id/btn_zoom_out">
@@ -112,5 +202,105 @@
             app:tint="@color/black" />
 
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_orders"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:clickable="true"
+        app:cardCornerRadius="99dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_borders"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.92">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_btn"
+            android:padding="12dp"
+            android:tint="@color/icon_color_white"
+            app:srcCompat="@drawable/ic_exchange" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/orders"
+        android:textColor="@color/text_color"
+        app:layout_constraintEnd_toEndOf="@id/btn_orders"
+        app:layout_constraintStart_toStartOf="@id/btn_orders"
+        app:layout_constraintTop_toBottomOf="@id/btn_orders" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_borders"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:clickable="true"
+        app:cardCornerRadius="99dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/btn_orders"
+        app:layout_constraintEnd_toStartOf="@id/btn_tariffs"
+        app:layout_constraintStart_toEndOf="@id/btn_orders"
+        app:layout_constraintTop_toTopOf="@id/btn_orders">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_btn"
+            android:padding="12dp"
+            android:tint="@color/icon_color_white"
+            app:srcCompat="@drawable/ic_rocket" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/borders"
+        android:textColor="@color/text_color"
+        app:layout_constraintEnd_toEndOf="@id/btn_borders"
+        app:layout_constraintStart_toStartOf="@id/btn_borders"
+        app:layout_constraintTop_toBottomOf="@id/btn_borders" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_tariffs"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:clickable="true"
+        app:cardCornerRadius="99dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/btn_orders"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_borders"
+        app:layout_constraintTop_toTopOf="@id/btn_orders">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_btn"
+            android:padding="12dp"
+            android:tint="@color/icon_color_white"
+            app:srcCompat="@drawable/ic_tariff" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/tariffs"
+        android:textColor="@color/text_color"
+        app:layout_constraintEnd_toEndOf="@id/btn_tariffs"
+        app:layout_constraintStart_toStartOf="@id/btn_tariffs"
+        app:layout_constraintTop_toBottomOf="@id/btn_tariffs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
