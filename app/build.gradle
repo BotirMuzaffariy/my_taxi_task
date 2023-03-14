@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -53,4 +54,11 @@ dependencies {
 
     // permissionX
     implementation 'com.guolindev.permissionx:permissionx:1.7.1'
+
+    // location services
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    // room
+    implementation 'androidx.room:room-runtime:2.5.0'
+    kapt 'androidx.room:room-compiler:2.5.0'
 }

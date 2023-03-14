@@ -1,6 +1,7 @@
 package uz.lazydevv.mytaxitask
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListen
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.permissionx.guolindev.PermissionX
 import uz.lazydevv.mytaxitask.databinding.ActivityMainBinding
+import uz.lazydevv.mytaxitask.services.LocationService
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     private val onMoveListener = object : OnMoveListener {
         override fun onMoveBegin(detector: MoveGestureDetector) {
-            disableUserTracking()
+            disableUserTrackingInMap()
         }
 
         override fun onMove(detector: MoveGestureDetector) = false
@@ -57,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         PermissionX.init(this)
-            .permissions(Manifest.permission.ACCESS_FINE_LOCATION)
+            .permissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
             .onForwardToSettings { scope, deniedList ->
                 scope.showForwardToSettingsDialog(
                     deniedList,
@@ -67,24 +69,41 @@ class MainActivity : AppCompatActivity() {
                 )
             }
             .request { allGranted, _, _ ->
-                if (allGranted) setUpMap()
+                if (allGranted) {
+                    setUpMap()
+                    startUserLocationTracking()
+                }
             }
 
         with(binding) {
             btnZoomIn.setOnClickListener {
-                disableUserTracking()
+                disableUserTrackingInMap()
                 changeZoomWithAnimation(1)
             }
 
             btnZoomOut.setOnClickListener {
-                disableUserTracking()
+                disableUserTrackingInMap()
                 changeZoomWithAnimation(-1)
             }
 
             btnTrackUser.setOnClickListener {
-                disableUserTracking()
-                enableUserTracking()
+                disableUserTrackingInMap()
+                enableUserTrackingInMap()
             }
+        }
+    }
+
+    private fun startUserLocationTracking() {
+        Intent(applicationContext, LocationService::class.java).apply {
+            action = LocationService.ACTION_START
+            startService(this)
+        }
+    }
+
+    private fun stopUserLocationTracking() {
+        Intent(applicationContext, LocationService::class.java).apply {
+            action = LocationService.ACTION_STOP
+            startService(this)
         }
     }
 
@@ -95,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                 gestures.pitchEnabled = false
 
                 initLocationComponent()
-                enableUserTracking()
+                enableUserTrackingInMap()
             }
         }
     }
@@ -142,14 +161,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun enableUserTracking() {
+    private fun enableUserTrackingInMap() {
         with(binding.mapView) {
             location.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
             gestures.addOnMoveListener(onMoveListener)
         }
     }
 
-    private fun disableUserTracking() {
+    private fun disableUserTrackingInMap() {
         with(binding.mapView) {
             gestures.focalPoint = getMapboxMap().pixelForCoordinate(getMapboxMap().cameraState.center)
             location.removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
@@ -159,7 +178,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        disableUserTracking()
+        disableUserTrackingInMap()
+        stopUserLocationTracking()
     }
 
     companion object {
