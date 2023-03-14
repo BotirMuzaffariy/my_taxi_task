@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -19,10 +20,14 @@ import com.mapbox.maps.plugin.animation.CameraAnimatorOptions.Companion.cameraAn
 import com.mapbox.maps.plugin.animation.MapAnimationOptions
 import com.mapbox.maps.plugin.animation.camera
 import com.mapbox.maps.plugin.animation.flyTo
+import com.mapbox.maps.plugin.attribution.attribution
+import com.mapbox.maps.plugin.compass.compass
 import com.mapbox.maps.plugin.gestures.OnMoveListener
 import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
+import com.mapbox.maps.plugin.logo.logo
+import com.mapbox.maps.plugin.scalebar.scalebar
 import com.permissionx.guolindev.PermissionX
 import uz.lazydevv.mytaxitask.databinding.ActivityMainBinding
 import uz.lazydevv.mytaxitask.services.LocationService
@@ -67,6 +72,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         with(binding) {
+            btnSpark.setOnClickListener {
+                if (isDarkModeEnabled()) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+            }
+
             btnZoomIn.setOnClickListener {
                 disableUserTrackingInMap()
                 changeZoomWithAnimation(1)
@@ -129,10 +142,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpMap() {
         with(binding.mapView) {
-            val style =
-                if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) Style.DARK else Style.MAPBOX_STREETS
+            val style = if (isDarkModeEnabled()) Style.DARK else Style.MAPBOX_STREETS
 
             getMapboxMap().loadStyleUri(style) {
+                scalebar.enabled = false
+                compass.enabled = false
+                logo.enabled = false
+                attribution.enabled = false
+
                 gestures.rotateEnabled = false
                 gestures.pitchEnabled = false
 
@@ -140,6 +157,10 @@ class MainActivity : AppCompatActivity() {
                 enableUserTrackingInMap()
             }
         }
+    }
+
+    private fun isDarkModeEnabled(): Boolean {
+        return resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 
     private fun changeZoomWithAnimation(byValue: Int) {
