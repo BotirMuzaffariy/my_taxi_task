@@ -78,6 +78,7 @@
         app:layout_constraintTop_toTopOf="@id/btn_notifications" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_tab"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white_gray"
@@ -217,6 +218,7 @@
         app:layout_constraintVertical_bias="0.92">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_orders"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/gradient_btn"
@@ -227,6 +229,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_orders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -250,6 +253,7 @@
         app:layout_constraintTop_toTopOf="@id/btn_orders">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_borders"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/gradient_btn"
@@ -260,6 +264,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_borders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -283,6 +288,7 @@
         app:layout_constraintTop_toTopOf="@id/btn_orders">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_tariffs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/gradient_btn"
@@ -293,6 +299,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_tariffs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

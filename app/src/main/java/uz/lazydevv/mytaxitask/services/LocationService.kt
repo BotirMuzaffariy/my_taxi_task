@@ -48,6 +48,8 @@ class LocationService : Service() {
     }
 
     private fun start() {
+        val locationDao = AppDb.getInstance(this).locationDao()
+
         val notification = NotificationCompat.Builder(this, AppConstants.NOTIFICATION_CHANNEL_ID)
             .setContentTitle("Tracking location...")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -58,7 +60,7 @@ class LocationService : Service() {
             .catch { it.printStackTrace() }
             .onEach {
                 val newLocation = LocationEntity(latitude = it.latitude, longitude = it.longitude)
-                AppDb.getInstance(this).locationDao().addLocation(newLocation)
+                locationDao.addLocation(newLocation)
             }
             .launchIn(serviceScope)
 

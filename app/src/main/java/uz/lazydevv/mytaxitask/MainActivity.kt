@@ -2,10 +2,13 @@ package uz.lazydevv.mytaxitask
 
 import android.Manifest
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.maps.Style
@@ -93,6 +96,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        when (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_YES -> binding.mapView.getMapboxMap().loadStyleUri(Style.DARK)
+            Configuration.UI_MODE_NIGHT_NO -> binding.mapView.getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS)
+        }
+
+        resetBackgroundColors()
+    }
+
     private fun startUserLocationTracking() {
         Intent(applicationContext, LocationService::class.java).apply {
             action = LocationService.ACTION_START
@@ -109,7 +123,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpMap() {
         with(binding.mapView) {
-            getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS) {
+            val style =
+                if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) Style.DARK else Style.MAPBOX_STREETS
+
+            getMapboxMap().loadStyleUri(style) {
                 gestures.rotateEnabled = false
                 gestures.pitchEnabled = false
 
@@ -173,6 +190,28 @@ class MainActivity : AppCompatActivity() {
             gestures.focalPoint = getMapboxMap().pixelForCoordinate(getMapboxMap().cameraState.center)
             location.removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
             gestures.removeOnMoveListener(onMoveListener)
+        }
+    }
+
+    private fun resetBackgroundColors() {
+        with(binding) {
+            btnMenu.setCardBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.white_gray))
+            btnNotifications.setCardBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.white_gray))
+            btnSpark.setCardBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.white_gray))
+
+            cvTab.setCardBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.white_gray))
+
+            ivOrders.setBackgroundResource(R.drawable.gradient_btn)
+            ivBorders.setBackgroundResource(R.drawable.gradient_btn)
+            ivTariffs.setBackgroundResource(R.drawable.gradient_btn)
+
+            ivOrders.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this@MainActivity, R.color.icon_color_white))
+            ivBorders.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this@MainActivity, R.color.icon_color_white))
+            ivTariffs.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this@MainActivity, R.color.icon_color_white))
+
+            tvOrders.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.text_color))
+            tvBorders.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.text_color))
+            tvTariffs.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.text_color))
         }
     }
 
