@@ -61,22 +61,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        PermissionX.init(this)
-            .permissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-            .onForwardToSettings { scope, deniedList ->
-                scope.showForwardToSettingsDialog(
-                    deniedList,
-                    "You need to allow necessary permissions in Settings manually",
-                    "OK",
-                    "Cancel"
-                )
-            }
-            .request { allGranted, _, _ ->
-                if (allGranted) {
-                    setUpMap()
-                    startUserLocationTracking()
-                }
-            }
+        checkLocationPermissionAndDo {
+            setUpMap()
+            startUserLocationTracking()
+        }
 
         with(binding) {
             btnZoomIn.setOnClickListener {
@@ -90,8 +78,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             btnTrackUser.setOnClickListener {
-                disableUserTrackingInMap()
-                enableUserTrackingInMap()
+                checkLocationPermissionAndDo {
+                    disableUserTrackingInMap()
+                    enableUserTrackingInMap()
+                }
             }
         }
     }
@@ -105,6 +95,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         resetBackgroundColors()
+    }
+
+    private fun checkLocationPermissionAndDo(onGranted: () -> Unit) {
+        PermissionX.init(this)
+            .permissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+            .onForwardToSettings { scope, deniedList ->
+                scope.showForwardToSettingsDialog(
+                    deniedList,
+                    "You need to allow necessary permissions in Settings manually",
+                    "OK",
+                    "Cancel"
+                )
+            }
+            .request { allGranted, _, _ ->
+                if (allGranted) onGranted.invoke()
+            }
     }
 
     private fun startUserLocationTracking() {
